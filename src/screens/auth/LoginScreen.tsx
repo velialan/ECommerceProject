@@ -6,12 +6,15 @@ import {Formik} from 'formik'
 import {SigninSchema} from '../../utils/validation'
 import useTheme from '../../providers/theme.provider'
 import useAuth from '../../providers/auth.provider'
- 
+import {useNavigation} from '@react-navigation/native'
+
 type Props = {}
 
-const LoginScreen = (props: Props) => { 
-  const {authContext}=useAuth()
- 
+const LoginScreen = (props: Props) => {
+  const {authContext} = useAuth()
+  const {push} = useNavigation()
+  const {mode} = useTheme()
+
   return (
     <Box as={ScrollView} bg='bg' contentContainerStyle={{flexGrow: 1}} px={16}>
       <Box height={88}></Box>
@@ -22,12 +25,13 @@ const LoginScreen = (props: Props) => {
       <Formik
         validationSchema={SigninSchema}
         initialValues={{email: 'user@user.com', password: 'user1234'}}
-        onSubmit={values => authContext.signIn({token:'asdasdasd'})}>
+        onSubmit={values => authContext.signIn({token: 'asdasdasd'})}>
         {({handleChange, handleBlur, handleSubmit, values, errors, touched}) => (
           <>
             <Box flex={1} mt={67}>
               <Box flexDirection='column'>
                 <TextField
+                  placeholderTextColor={mode === 'dark' ? '#fff' : '#000'}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
@@ -64,16 +68,20 @@ const LoginScreen = (props: Props) => {
                       {errors.email}
                     </Text>
                   </>
-                ) :values.email.length>1&& (
-                  <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
-                    <Image source={ImageSource.success} />
-                  </Box>
+                ) : (
+                  values.email.length > 1 && (
+                    <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
+                      <Image source={ImageSource.success} />
+                    </Box>
+                  )
                 )}
               </Box>
               <Box height={8} />
 
               <Box flexDirection='column'>
                 <TextField
+                                  placeholderTextColor={mode === 'dark' ? '#fff' : '#000'}
+
                   secureTextEntry
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -111,10 +119,12 @@ const LoginScreen = (props: Props) => {
                       <Image source={ImageSource.error} />
                     </Box>
                   </>
-                ) : values.password.length>1&&(
-                  <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
-                    <Image source={ImageSource.success} />
-                  </Box>
+                ) : (
+                  values.password.length > 1 && (
+                    <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
+                      <Image source={ImageSource.success} />
+                    </Box>
+                  )
                 )}
               </Box>
               <Box mt={16} flexDirection='row' justifyContent='flex-end' alignItems='center'>
@@ -151,7 +161,16 @@ const LoginScreen = (props: Props) => {
         )}
       </Formik>
       <Box mb={23} justifyContent='flex-end' alignItems='center'>
-        <Text onPress={() => {}} color='text' fontSize={14} fontFamily='AbeeZee-Italic' textAlign='right'>
+        <Text
+          mb={3}
+          onPress={() => push('Register')}
+          color='text'
+          fontSize={16}
+          fontFamily='AbeeZee-Italic'
+          textAlign='right'>
+          Register
+        </Text>
+        <Text color='text' fontSize={14} fontFamily='AbeeZee-Italic' textAlign='right'>
           Or login with social account
         </Text>
         <Box flexDirection='row' mt={12}>

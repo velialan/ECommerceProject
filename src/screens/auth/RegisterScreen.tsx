@@ -4,10 +4,15 @@ import {Box, Button, Image, Text, TextField} from '../../components'
 import {ImageSource} from '../../utils/constants'
 import {Formik, Form, Field} from 'formik'
 import {SignupSchema} from '../../utils/validation'
+import useTheme from '../../providers/theme.provider'
+import {useNavigation} from '@react-navigation/native'
 
 type Props = {}
 
 const RegisterScreen = (props: Props) => {
+  const {mode} = useTheme()
+  const {push} = useNavigation()
+
   return (
     <Box as={ScrollView} bg='bg' contentContainerStyle={{flexGrow: 1}} px={16}>
       <Box height={88}></Box>
@@ -23,6 +28,7 @@ const RegisterScreen = (props: Props) => {
             <Box flex={1} mt={67}>
               <Box flexDirection='column'>
                 <TextField
+                  placeholderTextColor={mode === 'dark' ? 'gray' : '#000'}
                   onChangeText={handleChange('name')}
                   onBlur={handleBlur('name')}
                   value={values.name}
@@ -71,6 +77,7 @@ const RegisterScreen = (props: Props) => {
               <Box height={8} />
               <Box flexDirection='column'>
                 <TextField
+                  placeholderTextColor={mode === 'dark' ? 'gray' : '#000'}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
@@ -107,16 +114,19 @@ const RegisterScreen = (props: Props) => {
                       {errors.email}
                     </Text>
                   </>
-                ) : values.email.length>1&&(
-                  <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
-                    <Image source={ImageSource.success} />
-                  </Box>
+                ) : (
+                  values.email.length > 1 && (
+                    <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
+                      <Image source={ImageSource.success} />
+                    </Box>
+                  )
                 )}
               </Box>
               <Box height={8} />
 
               <Box flexDirection='column'>
                 <TextField
+                  placeholderTextColor={mode === 'dark' ? 'gray' : '#000'}
                   secureTextEntry
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -154,16 +164,19 @@ const RegisterScreen = (props: Props) => {
                       <Image source={ImageSource.error} />
                     </Box>
                   </>
-                ) : values.password.length>1&&(
-                  <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
-                    <Image source={ImageSource.success} />
-                  </Box>
+                ) : (
+                  values.password.length > 1 && (
+                    <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
+                      <Image source={ImageSource.success} />
+                    </Box>
+                  )
                 )}
               </Box>
               <Box height={8} />
 
               <Box flexDirection='column'>
                 <TextField
+                  placeholderTextColor={mode === 'dark' ? 'gray' : '#000'}
                   secureTextEntry
                   onChangeText={handleChange('confirmPassword')}
                   onBlur={handleBlur('confirmPassword')}
@@ -201,14 +214,22 @@ const RegisterScreen = (props: Props) => {
                       <Image source={ImageSource.error} />
                     </Box>
                   </>
-                ) : values.confirmPassword.length>1&&(
-                  <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
-                    <Image source={ImageSource.success} />
-                  </Box>
+                ) : (
+                  values.confirmPassword.length > 1 && (
+                    <Box zIndex={9999} position='absolute' top={0} bottom={0} right={21} justifyContent='center'>
+                      <Image source={ImageSource.success} />
+                    </Box>
+                  )
                 )}
               </Box>
               <Box mt={16} flexDirection='row' justifyContent='flex-end' alignItems='center'>
-                <Text color='text' onPress={() => {}} fontSize={14} fontFamily='AbeeZee-Italic'>
+                <Text
+                  color='text'
+                  onPress={() => {
+                    push('Login')
+                  }}
+                  fontSize={14}
+                  fontFamily='AbeeZee-Italic'>
                   Already have an account?
                 </Text>
                 <Image source={ImageSource.arrowRight} />

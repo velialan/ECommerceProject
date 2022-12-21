@@ -34,12 +34,9 @@ export interface InputProps
     SpaceProps,
     InputTypographyProps,
     RNTextInputProps {
-      placeHolderColor?:boolean
-     }
+      }
 
-export const TextField = styled(RNTextInput).attrs(props => ({
-  placeholderTextColor: '#252a34'
-}))<InputProps>(
+export const TextField = styled(RNTextInput)<InputProps>(
   basics,
   borders,
   dimensions,
@@ -47,7 +44,6 @@ export const TextField = styled(RNTextInput).attrs(props => ({
   positions,
   space,
   typography,
-  color,
-  
+  color,  
 );
  

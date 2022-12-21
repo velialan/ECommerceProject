@@ -18,7 +18,7 @@ const modes = [
 export const ThemeContextProvider = ({ children }) => {
   const [mode, setMode] = useState(modes[0])
   const [theme, setTheme] = useState(baseTheme)
-
+ 
   useEffect(() => { 
     getTheme()
   }, [])

@@ -4,8 +4,8 @@
   primary: '#DB3022',
   text:"#000",
   inputbg:"#fff",
+  input:"#000",
   placeHolder:"#000",
-
   bg: '#F9F9F9',
   white: '#fff',
   error: '#F01F0E',
@@ -18,9 +18,9 @@
       gray: '#ABB4BD',
       primary: '#EF3651',
       text:"#fff",
+      input:"#fff",
       inputbg:"#2A2C36",
       placeHolder:"#fff",
-
       bg: '#1E1F28',
       white: '#F6F6F6',
       error: '#FF2424',
